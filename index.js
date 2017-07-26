@@ -16,5 +16,7 @@ module.exports = function mjmlLoader(content) {
     throw new Error(result.error);
   }
 
-  return `module.exports = ${JSON.stringify(result.html)};`;
+  const value = `${JSON.stringify(result.html)};`;
+  const module = this.version && this.version >= 2 ? `export default ${value};` : `module.exports = ${value};`;
+  return module
 };
